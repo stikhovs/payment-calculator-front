@@ -1,0 +1,14 @@
+#file-choose-input {
+    display: none;
+}
+
+#file-choose-label {
+    background-color: aqua;
+    padding: 10px 20px;
+    border: 1px solid rgb(25, 78, 96);
+    cursor: pointer;
+}
+
+#file-choose-label:hover {
+    background-color: rgb(23, 203, 203);
+}
