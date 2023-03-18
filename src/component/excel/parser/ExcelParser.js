@@ -5,6 +5,9 @@ import GroupInfo from "../dto/GroupInfo.ts";
 import { DayOfWeek } from "../dto/DayOfWeek.ts";
 import Student from '../dto/Student.ts';
 
+import './ExcelParser.css';
+
+
 export default async function ExcelParser(file) {
 
     console.log("Reading file");
@@ -22,7 +25,7 @@ export default async function ExcelParser(file) {
     //console.log(Object.entries(wb_sheet));
     //const {B14 , B15} = wb_sheet;
     //console.log(B14 , B15);
-    console.log(wb);
+    //console.log(wb);
     console.log(wb.Sheets);
 
     const groups = wb.SheetNames
@@ -30,10 +33,10 @@ export default async function ExcelParser(file) {
         .filter(([, sheet]) => filterValidSheet(sheet))
         .map(([sheetName, sheet]) => handleSheetMapping(sheetName, sheet))
 
+    console.log("groups to process");
     console.log(groups);
 
-    return (<div></div>);
-
+    return groups;
 
 }
 
@@ -84,14 +87,14 @@ function handleSheetMapping(name, sheet) {
 }
 
 function handleDays(sheet, daysCells) {
-    console.log(daysCells);
+    //console.log(daysCells);
     return daysCells
         .map((cellName, index) => [index, cellName])
         .filter(([, cellName]) => {
             return sheet[cellName]?.v === true;
         })
         .map(([index, cellName]) => {
-            console.log("Filtered " + cellName + "; index: " + index + "; Day: " + Object.keys(DayOfWeek)[index]);
+            //console.log("Filtered " + cellName + "; index: " + index + "; Day: " + Object.keys(DayOfWeek)[index]);
             return Object.keys(DayOfWeek)[index];
         })
 }

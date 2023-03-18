@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { InputGroup, Form } from 'react-bootstrap';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import ExcelParser from '../excel/parser/ExcelParcer';
+import ExcelParser from '../excel/parser/ExcelParser';
 
 
 import './FileChooser.css';
 
-export default function FileChooser({ onUploadDone }) {
+export default function FileChooser({ onGroupsParsed, onUploadDone }) {
 
     const saveFileUrl = 'http://localhost:8080/save';
     const [selectedFile, setSelectedFile] = useState();
@@ -14,22 +14,15 @@ export default function FileChooser({ onUploadDone }) {
     const [progress, setProgress] = useState(0);
     const [isAnimatedProgress, setIsAnimatedProgress] = useState(true);
 
-    /* const groupInfoCells = {
-            pricePerHour: "A1", 
-            groupId: "A3",
-            groupLevel: "E3",
-            teacherOne: "R1",
-            teacherTwo: "R3",
-            classDurationOne: "Y1",
-            classDurationTwo: "Y3",
-            classStartTime: "AF2"
-        }; */
 
     function changeHandler(event) {
         if (event.target.files[0] !== undefined) {
             setSelectedFile(event.target.files[0]);
             setIsFilePicked(true);
-            ExcelParser(event.target.files[0]);
+            
+            ExcelParser(event.target.files[0])
+                .then(value => onGroupsParsed(value));
+            
 
             let formData = new FormData();
             formData.append('fileToUpload', event.target.files[0]);
@@ -57,8 +50,8 @@ export default function FileChooser({ onUploadDone }) {
                 onUploadDone(responseObj);
             };
 
-            xhr.open('POST', saveFileUrl);
-            xhr.send(formData);
+            /* xhr.open('POST', saveFileUrl);
+            xhr.send(formData); */
 
             /* fetch(saveFileUrl, {
                 method: 'POST',
@@ -91,7 +84,7 @@ export default function FileChooser({ onUploadDone }) {
                     </div>
                 ) : <></>}
             </div>
-            <ProgressBar variant="info" animated={isAnimatedProgress} now={progress} label={`${progress}%`} />
+            <ProgressBar variant="info" animated={isAnimatedProgress} now={progress} label={`${progress}%`} />            
         </div>
     );
 }
