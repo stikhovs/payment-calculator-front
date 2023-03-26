@@ -23,6 +23,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [resultGroups, setResultGroups] = useState([]);
   const [isCalcBtnDisabled, setIsCalcBtnDisabled] = useState(true);
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   /* useEffect(() => {
     if (fileName !== '') {
@@ -55,7 +56,7 @@ export default function App() {
   function doCalculation() {
     setResultGroups([]);
 
-    fetch(`http://localhost:8080/process-groups`, {
+    fetch(`${backendUrl}/process-groups`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -77,7 +78,7 @@ export default function App() {
 
   function downloadExcel() {
     console.log(resultGroups);
-    fetch(`http://localhost:8080/download-excel`, {
+    fetch(`${backendUrl}/download-excel`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
