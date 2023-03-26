@@ -32,6 +32,7 @@ export default async function ExcelParser(file) {
         .map(name => [name, wb.Sheets[name]])
         .filter(([, sheet]) => filterValidSheet(sheet))
         .map(([sheetName, sheet]) => handleSheetMapping(sheetName, sheet))
+        .filter(({students}) => students.length > 0)
 
     console.log("groups to process");
     console.log(groups);
@@ -41,7 +42,7 @@ export default async function ExcelParser(file) {
 }
 
 function filterValidSheet(sheet) {
-    const hasPricePerHour = sheet[groupInfoCells.pricePerHour] !== undefined;
+    const hasPricePerHour = sheet[groupInfoCells.pricePerHour] !== undefined && typeof sheet[groupInfoCells.pricePerHour].v == 'number';
     const hasGroupId = sheet[groupInfoCells.groupId] !== undefined;
     const hasGroupLevel = sheet[groupInfoCells.groupLevel] !== undefined;
     const hasTeacherOne = sheet[groupInfoCells.teacherOne] !== undefined;

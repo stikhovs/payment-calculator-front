@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { InputGroup, Form } from 'react-bootstrap';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import ExcelParser from '../excel/parser/ExcelParser';
@@ -19,12 +19,11 @@ export default function FileChooser({ onGroupsParsed, onUploadDone }) {
         if (event.target.files[0] !== undefined) {
             setSelectedFile(event.target.files[0]);
             setIsFilePicked(true);
-            
+
             ExcelParser(event.target.files[0])
                 .then(value => onGroupsParsed(value));
-            
 
-            let formData = new FormData();
+            /* let formData = new FormData();
             formData.append('fileToUpload', event.target.files[0]);
 
             let xhr = new XMLHttpRequest();
@@ -48,7 +47,7 @@ export default function FileChooser({ onGroupsParsed, onUploadDone }) {
                 let responseObj = xhr.response;
                 console.log(responseObj);
                 onUploadDone(responseObj);
-            };
+            }; */
 
             /* xhr.open('POST', saveFileUrl);
             xhr.send(formData); */
@@ -84,7 +83,7 @@ export default function FileChooser({ onGroupsParsed, onUploadDone }) {
                     </div>
                 ) : <></>}
             </div>
-            <ProgressBar variant="info" animated={isAnimatedProgress} now={progress} label={`${progress}%`} />            
+            {/* <ProgressBar variant="info" animated={isAnimatedProgress} now={progress} label={`${progress}%`} /> */}
         </div>
     );
 }

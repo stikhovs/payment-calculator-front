@@ -5,6 +5,9 @@ import DayChange from './component/day-change/DayChange';
 import MonthChoose from './component/month-choose/MonthChoose';
 import DayOff from './component/day-off/DayOff';
 import Sse from './component/sse/Sse';
+import XLSX from "xlsx";
+import GroupContainer from './component/group-container/GroupContainer';
+import Accordion from 'react-bootstrap/Accordion';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -19,30 +22,40 @@ export default function App() {
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(false);
   const [resultGroups, setResultGroups] = useState([]);
+  const [isCalcBtnDisabled, setIsCalcBtnDisabled] = useState(true);
 
-  useEffect(() => {
-    console.log("fileName: " + fileName);
-  }, [fileName]);
-
-  useEffect(() => {
-    if (dateToCalc !== undefined) {
-      console.log(dateToCalc.date);
+  /* useEffect(() => {
+    if (fileName !== '') {
+      console.log("fileName: " + fileName);
     }
-  }, [dateToCalc]);
+  }, [fileName]); */
 
   useEffect(() => {
-    console.log(daysOff);
+    if (dateToCalc !== undefined && dateToCalc.date !== undefined && groups.length > 0) {
+      console.log(dateToCalc.date);
+      setIsCalcBtnDisabled(false);
+    } else {
+      setIsCalcBtnDisabled(true);
+    }
+  }, [dateToCalc, groups, isCalcBtnDisabled]);
+
+  useEffect(() => {
+    if (daysOff.lenth > 0) {
+      console.log(daysOff);
+    }
   }, [daysOff]);
 
   useEffect(() => {
-    console.log(daysChange);
+    if (daysChange.length > 0) {
+      console.log(daysChange);
+    }
   }, [daysChange]);
 
 
- function doCalculation() {
-    /* setLoading(true);
-  
-    const response = await fetch(`http://localhost:8080/process-groups`, {
+  function doCalculation() {
+    setResultGroups([]);
+
+    fetch(`http://localhost:8080/process-groups`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -53,46 +66,49 @@ export default function App() {
         daysChange: daysChange,
         groups: groups
       })
-    });
-    const data = await response.json();
-    setResultGroups(data); 
-    setLoading(false); */
-    setResultGroups([]);
-    const socket = new WebSocket("ws://localhost:8080/process-groups-ws");
-    socket.onopen= (event) => {
-      console.log("Websocket is opened");
-      console.log(event);
-      socket.send(
-        JSON.stringify({
-          dateToCalc: formatDate(dateToCalc.date),
-          daysOff: daysOff,
-          daysChange: daysChange,
-          groups: groups
-        })
-      );
-    };
-    socket.onmessage = (event) => {
-      console.log(event.data);
-      setResultGroups(current => [...current, event.data]);
-    };
-    socket.onerror = (error) => {
-      console.log("Error");
-      console.log(error);
-    }
-    socket.onclose = (event) => {
-      console.log("Closing");
-      console.log(event);
-    }
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log("Result");
+        console.log(res);
+        setResultGroups(res);
+      });
+  }
 
-      
-    /* if (socket.bufferedAmount <= 0) {
-      socket.close();
-    } */
-    /* socket.addEventListener('message', async (event) => {
-      const profile = JSON.parse(event.data);
-      this.state.profiles.push(profile);
-      this.setState({ profiles: this.state.profiles });
-    }); */
+  function downloadExcel() {
+    console.log(resultGroups);
+    fetch(`http://localhost:8080/download-excel`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        month: dateToCalc.date.toLocaleString('ru-RU', { month: 'long' }),
+        monWedFr: resultGroups.monWedFr,
+        tueThr: resultGroups.tueThr,
+        sat: resultGroups.sat,
+        individuals: resultGroups.individuals,
+        others: resultGroups.others
+      })
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.blob();
+        } 
+        throw new Error('Something went wrong');
+      })
+      .then((blob) => {
+
+        // 2. Create blob link to download
+        const url = window.URL.createObjectURL(new Blob([blob]));
+        const link = document.createElement('a');
+        link.setAttribute('download', `Расчет квитанций - ${formatDateForExcel(dateToCalc.date)}.xlsx`);
+        link.href = url;
+        link.click();
+      })
+      .catch((error) => {
+        console.log(error)
+      });
   }
 
   return (
@@ -115,74 +131,56 @@ export default function App() {
               <div id='groups-to-process-container'>
                 {
                   groups.map((group, groupIndex) =>
-                    <div key={groupIndex} className='group-to-process'>
-                      <p><strong>{group.groupName}</strong></p>
-                      <ul>
-                        {group.students.map((student, studentIndex) =>
-                          <li key={studentIndex} className='student-to-process'>
-                            <span>{student.name}</span>
-                          </li>
-                        )}
-                      </ul>
-                    </div>
+                    <Accordion key={groupIndex}>
+                      <Accordion.Item eventKey={groupIndex} className='group-to-process'>
+                        <Accordion.Header>{group.groupName}</Accordion.Header>
+                        <Accordion.Body>
+                          <ul>
+                            {group.students.map((student, studentIndex) =>
+                              <li key={studentIndex} className='student-to-process'>
+                                <span>{student.name}</span>
+                              </li>
+                            )}
+                          </ul></Accordion.Body>
+                      </Accordion.Item>
+                    </Accordion>
                   )
                 }
               </div>
             </div>
           </div>
-          <div className='col-12'>
-
-
-            <Button variant='success' onClick={() => {
-              const sse = new EventSource('http://localhost:8080/calculate');
-              /* sse.addEventListener('periodic-event', (event) => {
-                console.log(event);
-              }); */
-              sse.onopen = (event) => {
-                console.log("Open" + event);
-              };
-              sse.onmessage = (e) => {
-                console.log(e);
-                console.log(e.data);
-                setFluxArr(current => [...current, e]);
-              };
-              sse.onerror = (event) => {
-                console.log("SSE error");
-                console.log(event);
-                sse.close();
-              }
-              return () => {
-                sse.close();
-              };
-            }}>Начать обработку</Button>
-
-          </div>
         </div>
         <div className='col-6'>
 
-          <Button variant='primary' onClick={doCalculation}>Обработать группы</Button>
+          <Button variant='primary' onClick={doCalculation} disabled={isCalcBtnDisabled}>Обработать группы</Button>
 
-          <Button as='a' variant='success'>Hello</Button>
+          <Button as='a' variant='success' onClick={downloadExcel}>Скачать Excel</Button>
 
-          <ul>
-            {resultGroups.map((res, index) => 
-              <li key={index}>
-              <span>{res}</span>
-            </li>
-            )}
-          </ul>
+          <GroupContainer groupsArr={resultGroups.monWedFr} title="пн ср птн" />
+          <GroupContainer groupsArr={resultGroups.tueThr} title="вт чт" />
+          <GroupContainer groupsArr={resultGroups.sat} title="сб" />
+          <GroupContainer groupsArr={resultGroups.individuals} title="индивидуалы" />
+          <GroupContainer groupsArr={resultGroups.others} title="другое" />
         </div>
       </div>
-    </div>
+    </div >
   );
 
 }
 
 function formatDate(date) {
 
-  let day = date.getDate().toString().padStart(2, '0');
-  let month = (date.getMonth() + 1).toString().padStart(2, '0');
-  let year = date.getFullYear();
+  const day = date.getDate().toString().padStart(2, '0');
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const year = date.getFullYear();
 
   return `${day}.${month}.${year}`;
+}
+
+function formatDateForExcel(date) {
+
+  const month = date.toLocaleString('ru-RU', { month: 'long' });
+  const year = date.getFullYear();
+
+  return `${month} ${year}`;
 }
