@@ -1,0 +1,43 @@
+#groups-result-by-schedule-container {
+    margin: 15px 0 0 0;
+    width: 100%;
+}
+
+.groups-result-by-schedule-list-title {
+    color: #383B3F;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+#groups-result-by-schedule-list {
+    height: 500px;
+}
+
+#groups-result-by-schedule-list .list-group-item {
+    transition: background-color .15s ease-in-out;
+    cursor: pointer;
+}
+
+#groups-result-by-schedule-list .list-group-item:not(.active):hover {
+    background-color: #E1E1E3;
+}
+
+#groups-result-by-schedule-list .list-group-item.active {
+    cursor: default;
+    background-color: #5ba8fb;
+    border-color: #57a1f1;
+}
+
+#groups-result-by-schedule-list .list-group-item .title {
+    margin: 0 0 5px 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #383B3F;
+}
+
+#groups-result-by-schedule-list .list-group-item .groups-count {
+    margin: 0 0 0 0;
+    font-size: 1rem;
+    color: #383B3F;
+}

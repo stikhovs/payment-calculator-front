@@ -1,0 +1,72 @@
+.title-container {
+    background-color: #212529;
+}
+
+.title-container h1 {
+    color: #ffffff;
+    font-size: 1.4rem;
+    padding: 0 0 0 20px;
+    margin: 0;
+}
+
+.buttons-container {
+    background-color: #383B3F;
+}
+
+.buttons-container .btn {
+    padding: 10px 20px;
+    font-weight: 500;
+    font-size: 1rem;
+    color: #383B3F;
+    margin: 0 10px;
+}
+
+
+#btn-do-calculation {
+    background-color: #4efe32;
+    border-color: #48eb2f;
+}
+
+#btn-do-calculation:hover {
+    background-color: #48eb2f;
+    border-color: #2ba518;
+    color: #212529;
+}
+
+#btn-do-calculation:active {
+    background-color: #43de2c;
+}
+
+
+#btn-to-excel {
+    background-color: #f8f126;
+    border-color: #ebe524;
+}
+
+#btn-to-excel:hover {
+    background-color: #e6df22;
+    border-color: #dcd522;
+    color: #212529;
+}
+
+#btn-to-excel:active {
+    background-color: #dcd522;
+}
+
+#btn-do-print {
+    color: #efeded;
+}
+/* #btn-do-print {
+    background-color: #f8f126;
+    border-color: #ebe524;
+    color: #ffffff;
+}
+
+#btn-do-print:hover {
+    background-color: #ebe524;
+    border-color: #e6df22;
+}
+
+#btn-do-print:active {
+    background-color: #e6df22;
+} */

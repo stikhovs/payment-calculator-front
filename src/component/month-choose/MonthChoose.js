@@ -6,9 +6,11 @@ import './MonthChoose.css';
 
 export default function MonthChoose({onMonthChosen}) {
     return(
-        <div className="col-12" id="month-choose-container">
+        <div id="month-choose-container">
+            <p className="choose-month-title">Выберите месяц</p>
             <AirDatepickerReact
                 name='choose-month'
+                inline={true}
                 position='right center'
                 view='months'
                 minView='months'

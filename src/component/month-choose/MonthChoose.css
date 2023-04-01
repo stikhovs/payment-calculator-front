@@ -1,0 +1,15 @@
+#month-choose-container {
+    margin: 0 0 20px 0;
+    width: 100%;
+}
+
+.choose-month-title {
+    color: #383B3F;
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+#month-choose-container .air-datepicker {
+    width: 100%;
+}

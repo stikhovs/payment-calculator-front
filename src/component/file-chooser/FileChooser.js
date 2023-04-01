@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { InputGroup, Form } from 'react-bootstrap';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import ExcelParser from '../excel/parser/ExcelParser';
@@ -6,19 +6,19 @@ import ExcelParser from '../excel/parser/ExcelParser';
 
 import './FileChooser.css';
 
-export default function FileChooser({ onGroupsParsed, onUploadDone }) {
+export default function FileChooser({ onFileChoose, onGroupsParsed }) {
 
-    const saveFileUrl = 'http://localhost:8080/save';
     const [selectedFile, setSelectedFile] = useState();
-    const [isFilePicked, setIsFilePicked] = useState(false);
-    const [progress, setProgress] = useState(0);
-    const [isAnimatedProgress, setIsAnimatedProgress] = useState(true);
+    const [fileName, setFileName] = useState();
+    //const [isFilePicked, setIsFilePicked] = useState(false);
 
 
     function changeHandler(event) {
         if (event.target.files[0] !== undefined) {
+            onFileChoose(event.target.files[0].name);
+
             setSelectedFile(event.target.files[0]);
-            setIsFilePicked(true);
+            //setIsFilePicked(true);
 
             ExcelParser(event.target.files[0])
                 .then(value => onGroupsParsed(value));
@@ -66,7 +66,7 @@ export default function FileChooser({ onGroupsParsed, onUploadDone }) {
 
     return (
         <div id="file-choose-container">
-            <InputGroup className="mb-3">
+            <InputGroup>
                 <Form.Control
                     id='file-choose-input'
                     type='file'
@@ -76,13 +76,13 @@ export default function FileChooser({ onGroupsParsed, onUploadDone }) {
                 <Form.Label id='file-choose-label'
                     htmlFor='file-choose-input'>Выберите Excel файл</Form.Label>
             </InputGroup>
-            <div id='file-info'>
+            {/* <div id='file-info'>
                 {isFilePicked ? (
                     <div>
                         <p>Выбранный файл: {selectedFile.name}</p>
                     </div>
                 ) : <></>}
-            </div>
+            </div> */}
             {/* <ProgressBar variant="info" animated={isAnimatedProgress} now={progress} label={`${progress}%`} /> */}
         </div>
     );

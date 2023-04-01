@@ -6,9 +6,8 @@ import AirDatepickerReact from '../date-picker/air-datepicker-react';
 import "./DayChange.css";
 
 
-export default function DayChange({daysChange, onDaysChangeChosen, onDayRemove}) {
+export default function DayChange({ onDaysChangeChosen }) {
 
-    /* const [daysChange, setDaysChange] = useState([]); */
     const [dayFromTo, setDayFromTo] = useState([]);
     const [isSaveDisabled, setIsSaveDisabled] = useState(false);
 
@@ -40,19 +39,15 @@ export default function DayChange({daysChange, onDaysChangeChosen, onDayRemove})
     }, [dayFromTo]);
 
     return (
-        <div id='day-change-container' className='col-12'>
-            <label htmlFor="addDayChangeBtn">Перенос дней</label>
-            <div>
-                <Button variant="outline-info" id="addDayChangeBtn" onClick={handleShow}>Добавить</Button>
-            </div>
-            <div id="daysChangeContainer">
+        <div id='day-change-container'>
+            <Button variant="outline-info" id="add-day-change-btn" onClick={handleShow}>Добавить перенос дней</Button>
+            {/* <div id="daysChangeContainer">
                 {daysChange.map((dc, index) =>
                     <div key={index} className='day-change-item'>
                         <p>Перенос с {dc.from} на {dc.to}</p>
-                        <Button variant='danger' onClick={() => onDayRemove(index)}>Remove</Button>
                     </div>
                 )}
-            </div>
+            </div> */}
 
             <Modal show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>
@@ -61,14 +56,14 @@ export default function DayChange({daysChange, onDaysChangeChosen, onDayRemove})
                 <Modal.Body>
                     <div className='row'>
                         <div className='col-12'>
-                            <AirDatepickerReact name='days-from' inline={true} multipleDates={2} onSelect={handleDayChange}/></div>
+                            <AirDatepickerReact name='days-from' inline={true} multipleDates={2} onSelect={handleDayChange} /></div>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleSave} disabled = { isSaveDisabled }>
+                    <Button variant="primary" onClick={handleSave} disabled={isSaveDisabled}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

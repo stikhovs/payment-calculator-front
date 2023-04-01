@@ -1,0 +1,33 @@
+#calculation-parameters-list-container {
+    margin: 15px 0 0 0;
+    width: 100%;
+}
+
+.calculation-parameters-list-title {
+    color: #383B3F;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.chosen-file, .chosen-month {
+    margin-bottom: 0.5rem;
+}
+
+.chosen-days-off {
+    margin-bottom: 5px;
+}
+
+.chosen-days-change {
+    margin-bottom: 0;
+}
+
+.chosen-days-off-list, .chosen-days-change-list {
+    margin-bottom: 0.5rem;
+    list-style-type: "– ";
+}
+
+.remove-day-change-btn-icon {
+    font-size: 1rem;
+}

@@ -1,0 +1,15 @@
+#day-off-container {
+    margin: 0 0 10px 0;
+    width: 100%;
+}
+
+.day-off-title {
+    color: #383B3F;
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+#day-off-container .air-datepicker {
+    width: 100%;
+}

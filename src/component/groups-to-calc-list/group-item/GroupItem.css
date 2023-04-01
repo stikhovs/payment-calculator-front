@@ -1,0 +1,44 @@
+#groups-to-calc-list .list-group-item {
+    transition: background-color .15s ease-in-out;
+    cursor: pointer;
+}
+
+#groups-to-calc-list .list-group-item .group-title {
+    margin: 0 0 5px 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #383B3F;
+}
+
+#groups-to-calc-list .list-group-item .group-schedule {
+    margin: 0 0 0 0;
+    color: #979797;
+}
+
+#groups-to-calc-list .list-group-item .students-count {
+    margin: 0 0 0 0;
+    font-size: 1rem;
+    color: #383B3F;
+}
+
+#groups-to-calc-list .list-group-item:not(.active):hover {
+    background-color: #E1E1E3;
+}
+
+#groups-to-calc-list .list-group-item.active {
+    cursor: default;
+    background-color: #5ba8fb;
+    border-color: #57a1f1;
+}
+
+#groups-to-calc-list .list-group-item.active .group-title {
+    color: #ffffff;
+}
+
+#groups-to-calc-list .list-group-item.active .group-schedule {
+    color: #ffffff;
+}
+
+#groups-to-calc-list .list-group-item.active .students-count {
+    color: #ffffff;
+}

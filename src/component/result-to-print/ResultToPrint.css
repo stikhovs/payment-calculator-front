@@ -1,0 +1,43 @@
+@media screen {
+    #to-print {
+        display: none;
+    }
+}
+
+@media print {
+    #root * {
+        display: none;
+    }
+    
+    #to-print, #to-print * {
+        display: block;
+    }
+
+    #to-print table {
+        display: table;
+    }
+
+    #to-print table thead {
+        display: table-header-group;
+    }
+
+    #to-print table tbody {
+        display: table-row-group;
+    }
+
+    #to-print table tr {
+        display: table-row;
+    }
+
+    #to-print table th, #to-print table td {
+        display: table-cell;
+    }
+
+    #to-print .new-page {
+        page-break-after: always;
+    }
+
+    #to-print .result-to-print {
+        margin: 0;
+    }
+}
