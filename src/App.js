@@ -42,13 +42,12 @@ export default function App() {
   }, [fileName]);
 
   useEffect(() => {
-    if (dateToCalc !== null && dateToCalc.date !== undefined && groups.length > 0) {
-      console.log(dateToCalc.date);
+    if (dateToCalc !== null && dateToCalc.date !== undefined && groups.length > 0 && isExcelCreationInProgress === false) {
       setIsCalcBtnDisabled(false);
     } else {
       setIsCalcBtnDisabled(true);
     }
-  }, [dateToCalc, groups, isCalcBtnDisabled]);
+  }, [dateToCalc, groups, isCalcBtnDisabled, isExcelCreationInProgress]);
 
   useEffect(() => {
     if (daysOff.lenth > 0) {
@@ -97,7 +96,6 @@ export default function App() {
   function downloadExcel() {
     setIsCalcBtnDisabled(true);
     setIsExcelBtnDisabled(true);
-    setIsPrintBtnDisabled(true);
     setIsExcelCreationInProgress(true);
     fetch(`${BACKEND_URL}/download-excel`, {
       method: 'POST',
@@ -131,7 +129,6 @@ export default function App() {
       .then(() => {
         setIsCalcBtnDisabled(false);
         setIsExcelBtnDisabled(false);
-        setIsPrintBtnDisabled(false);
         setIsExcelCreationInProgress(false);
       })
       .catch((error) => {
