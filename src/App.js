@@ -64,6 +64,7 @@ export default function App() {
 
 
   function doCalculation() {
+    setIsCalcBtnDisabled(true);
     setIsExcelBtnDisabled(true);
     setIsPrintBtnDisabled(true);
     setIsCalculationInProgess(true);
@@ -86,6 +87,7 @@ export default function App() {
         setResultGroups(res);
       })
       .then(() => {
+        setIsCalcBtnDisabled(false);
         setIsExcelBtnDisabled(false);
         setIsPrintBtnDisabled(false);
         setIsCalculationInProgess(false);
@@ -93,6 +95,7 @@ export default function App() {
   }
 
   function downloadExcel() {
+    setIsCalcBtnDisabled(true);
     setIsExcelBtnDisabled(true);
     setIsPrintBtnDisabled(true);
     setIsExcelCreationInProgress(true);
@@ -126,6 +129,7 @@ export default function App() {
         link.click();
       })
       .then(() => {
+        setIsCalcBtnDisabled(false);
         setIsExcelBtnDisabled(false);
         setIsPrintBtnDisabled(false);
         setIsExcelCreationInProgress(false);
