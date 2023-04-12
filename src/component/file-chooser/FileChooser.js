@@ -34,7 +34,7 @@ export default function FileChooser({ onFileChoose, onGroupsParsed }) {
                 <Form.Label id='file-choose-label'
                     htmlFor='file-choose-input'>
                     {
-                        isParsing ? <><span>Загрузка файла...</span><Spinner id='file-parsing-spinner' animation="border" variant="light" size="sm" /></>
+                        isParsing ? <><span>Загрузка файла...</span><Spinner className='in-progress-spinner' animation="border" variant="light" size="sm" /></>
                         : 'Выберите Excel файл'
                     }
                 </Form.Label>

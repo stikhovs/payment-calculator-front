@@ -23,6 +23,9 @@ export default function App() {
   const [isExcelBtnDisabled, setIsExcelBtnDisabled] = useState(true);
   const [isPrintBtnDisabled, setIsPrintBtnDisabled] = useState(true);
 
+  const [isCalculationInProgess, setIsCalculationInProgess] = useState(false);
+  const [isExcelCreationInProgress, setIsExcelCreationInProgress] = useState(false);
+
   const calcParams =
     <CalculationParametersList
       chosenFileName={fileName}
@@ -61,6 +64,9 @@ export default function App() {
 
 
   function doCalculation() {
+    setIsExcelBtnDisabled(true);
+    setIsPrintBtnDisabled(true);
+    setIsCalculationInProgess(true);
     fetch(`${BACKEND_URL}/process-groups`, {
       method: 'POST',
       headers: {
@@ -78,13 +84,18 @@ export default function App() {
         console.log("Result");
         console.log(res);
         setResultGroups(res);
+      })
+      .then(() => {
         setIsExcelBtnDisabled(false);
         setIsPrintBtnDisabled(false);
+        setIsCalculationInProgess(false);
       });
   }
 
   function downloadExcel() {
-    console.log(resultGroups);
+    setIsExcelBtnDisabled(true);
+    setIsPrintBtnDisabled(true);
+    setIsExcelCreationInProgress(true);
     fetch(`${BACKEND_URL}/download-excel`, {
       method: 'POST',
       headers: {
@@ -114,6 +125,11 @@ export default function App() {
         link.href = url;
         link.click();
       })
+      .then(() => {
+        setIsExcelBtnDisabled(false);
+        setIsPrintBtnDisabled(false);
+        setIsExcelCreationInProgress(false);
+      })
       .catch((error) => {
         console.log(error)
       });
@@ -130,6 +146,8 @@ export default function App() {
         isCalcBtnDisabled={isCalcBtnDisabled}
         isExcelBtnDisabled={isExcelBtnDisabled}
         isPrintBtnDisabled={isPrintBtnDisabled}
+        isCalculationInProgess={isCalculationInProgess}
+        isExcelCreationInProgress={isExcelCreationInProgress}
         doCalculation={doCalculation}
         downloadExcel={downloadExcel}
         printResult={printResult}

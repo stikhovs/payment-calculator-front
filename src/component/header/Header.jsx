@@ -1,13 +1,15 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import Spinner from 'react-bootstrap/Spinner';
 
 import './Header.css';
 
 
 export default function Header({ 
     isCalcBtnDisabled, isExcelBtnDisabled, isPrintBtnDisabled, 
-    doCalculation, downloadExcel, printResult
+    doCalculation, downloadExcel, printResult, isCalculationInProgess, isExcelCreationInProgress
 }) {
+
     return (
         <header className="sticky-top shadow">
             <div className='d-flex'>
@@ -18,12 +20,15 @@ export default function Header({
                     <Button id='btn-do-calculation'
                         onClick={doCalculation}
                         disabled={isCalcBtnDisabled}>
-                        Обработать группы
+                        {isCalculationInProgess ? <><span>Идет обработка...</span><Spinner className='in-progress-spinner' animation="border" variant="light" size="sm" /></>
+                        : <span>Обработать группы</span> }
                     </Button>
                     <Button id='btn-to-excel'
                         onClick={downloadExcel}
                         disabled={isExcelBtnDisabled}>
-                        Преобразовать в Excel
+                        {isExcelCreationInProgress ? <>Формирование отчета...<Spinner className='in-progress-spinner' animation="border" variant="light" size="sm" /></>
+                        : <span>Преобразовать в Excel</span>
+                        }
                     </Button>
                     <Button id='btn-do-print' variant='outline-secondary'
                         onClick={printResult}

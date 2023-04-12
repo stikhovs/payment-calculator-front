@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import XLSX from "xlsx";
 import { groupInfoCells, weekDaysOne, weekDaysTwo, studentNames, studentBalance, individualGraphic, singleDiscount, permanentDiscount } from "../cell/CellsProperties";
 import GroupInfo from "../dto/GroupInfo.ts";
@@ -7,29 +6,6 @@ import Student from '../dto/Student.ts';
 
 import './ExcelParser.css';
 
-
-/* export default async function ExcelParser(file) {
-
-    console.log("Reading file");
-    console.log(file);
-
-    const data = await file.arrayBuffer();
-    const wb = XLSX.read(data);
-
-    console.log(wb.Sheets);
-
-    const groups = wb.SheetNames
-        .map(name => [name, wb.Sheets[name]])
-        .filter(([, sheet]) => filterValidSheet(sheet))
-        .map(([sheetName, sheet]) => handleSheetMapping(sheetName, sheet))
-        .filter(({ students }) => students.length > 0)
-
-    console.log("groups to process");
-    console.log(groups);
-
-    return groups;
-
-} */
 
 export function parseFile(file) {
     return new Promise(async (resolve, reject) => {

@@ -5,3 +5,7 @@ html, body {
 .air-datepicker-cell.-selected- {
     background-color: #5ba8fb;
 }
+
+.in-progress-spinner {
+    margin-left: 10px;
+}
