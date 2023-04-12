@@ -13,6 +13,12 @@ export default function AirDatepickerReact(props) {
     datePicker.current = new AirDatepicker($input.current, { ...props });
   }, []);
 
+  useEffect(() => {
+    if (props.startDate !== undefined) {
+      datePicker.current.setViewDate(props.startDate);
+    }
+  }, [props.startDate]);
+
   if (props.inline === true) {
     return (
       <div className="datepicker-container">

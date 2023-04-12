@@ -6,10 +6,11 @@ import AirDatepickerReact from '../date-picker/air-datepicker-react';
 import "./DayChange.css";
 
 
-export default function DayChange({ onDaysChangeChosen }) {
+export default function DayChange({ chosenDate, daysChange, onDaysChangeChosen }) {
 
     const [dayFromTo, setDayFromTo] = useState([]);
     const [isSaveDisabled, setIsSaveDisabled] = useState(false);
+    const [datesToBeDisabled, setDatesToBeDisabled] = useState([]);
 
     const [show, setShow] = useState(false);
 
@@ -38,25 +39,44 @@ export default function DayChange({ onDaysChangeChosen }) {
         }
     }, [dayFromTo]);
 
+    useEffect(() => {
+        if (daysChange.length > 0) {
+            daysChange.forEach((fromToPair) => {
+                setDatesToBeDisabled([...datesToBeDisabled, fromToPair.from, fromToPair.to]);
+            })
+        }
+        if (daysChange.length === 0) {
+            setDatesToBeDisabled([]);
+        }
+    }, [daysChange]);
+
     return (
         <div id='day-change-container'>
             <Button variant="outline-info" id="add-day-change-btn" onClick={handleShow}>Добавить перенос дней</Button>
-            {/* <div id="daysChangeContainer">
-                {daysChange.map((dc, index) =>
-                    <div key={index} className='day-change-item'>
-                        <p>Перенос с {dc.from} на {dc.to}</p>
-                    </div>
-                )}
-            </div> */}
 
             <Modal show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>Перенос дней</Modal.Title>
+                    <Modal.Title className='text-center w-100'>Перенос дней</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div className='row'>
                         <div className='col-12'>
-                            <AirDatepickerReact name='days-from' inline={true} multipleDates={2} onSelect={handleDayChange} /></div>
+                            <AirDatepickerReact
+                                name='days-from' 
+                                startDate={chosenDate}
+                                inline={true} 
+                                multipleDates={2} 
+                                onSelect={handleDayChange}
+                                onRenderCell={(date, cellType) => {
+                                    if (datesToBeDisabled.length > 0) {
+                                        if (datesToBeDisabled.includes(formatDate(date.date))) {
+                                            return {
+                                                disabled: true
+                                            };
+                                        }
+                                    }
+                                }}
+                            /></div>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
@@ -70,4 +90,13 @@ export default function DayChange({ onDaysChangeChosen }) {
             </Modal>
         </div>
     );
+}
+
+function formatDate(date) {
+
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+
+    return `${day}.${month}.${year}`;
 }

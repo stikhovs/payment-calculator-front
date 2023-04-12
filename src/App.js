@@ -1,13 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'react-bootstrap';
-import FileChooser from './component/file-chooser/FileChooser';
-import DayChange from './component/day-change/DayChange';
-import MonthChoose from './component/month-choose/MonthChoose';
-import DayOff from './component/day-off/DayOff';
-import Sse from './component/sse/Sse';
-import XLSX from "xlsx";
-import GroupContainer from './component/group-container/GroupContainer';
-import Accordion from 'react-bootstrap/Accordion';
 import Header from './component/header/Header';
 import DataInputSection from './component/data-input-section/DataInputSection';
 import CalculationSection from './component/calculation-section/CalculationSection';
@@ -149,6 +140,7 @@ export default function App() {
             onGroupsParsed={(res) => setGroups(res)}
             onFileChoose={(chosenFileName) => setFileName(chosenFileName)}
             onMonthChosen={(res) => setDateToCalc(res)}
+            chosenDate={dateToCalc !== null ? dateToCalc.date : new Date()}
             daysOff={daysOff}
             onDaysOffChosen={(res) => setDaysOff(res)}
             daysChange={daysChange}
@@ -158,60 +150,8 @@ export default function App() {
             groupsToCalc={groups}
             resultGroups={resultGroups}
             calcParams={calcParams}
-          /* chosenFileName={fileName}
-          chosenMonth={formatDateForExcel(dateToCalc?.date)}
-          chosenDaysOff={daysOff}
-          chosenDaysChange={daysChange}
-          onChangeDayRemove={(index) => setDaysChange(daysChange.filter((el, idx) => idx !== index))} */
           />
         </div>
-        {/* <div className="App row">
-          <div className='col-6'>
-            <div className='row'>
-              <div className='col-6'>
-                <FileChooser onGroupsParsed={(res) => setGroups(res)} onUploadDone={(res) => setFileName(res)} />
-                <MonthChoose onMonthChosen={(res) => setDateToCalc(res)} />
-                <DayOff daysOff={daysOff} onDaysOffChosen={(res) => setDaysOff(res)} />
-                <DayChange daysChange={daysChange}
-                  onDaysChangeChosen={(res) => setDaysChange(current => [...current, { from: res[0], to: res[1] }])}
-                  onDayRemove={(index) => setDaysChange(daysChange.filter((el, idx) => idx !== index))} />
-              </div>
-              <div className='col-6'>
-                <div id='groups-to-process-container'>
-                  {
-                    groups.map((group, groupIndex) =>
-                      <Accordion key={groupIndex}>
-                        <Accordion.Item eventKey={groupIndex} className='group-to-process'>
-                          <Accordion.Header>{group.groupName}</Accordion.Header>
-                          <Accordion.Body>
-                            <ul>
-                              {group.students.map((student, studentIndex) =>
-                                <li key={studentIndex} className='student-to-process'>
-                                  <span>{student.name}</span>
-                                </li>
-                              )}
-                            </ul></Accordion.Body>
-                        </Accordion.Item>
-                      </Accordion>
-                    )
-                  }
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className='col-6'>
-
-            <Button variant='primary' onClick={doCalculation} disabled={isCalcBtnDisabled}>Обработать группы</Button>
-
-            <Button as='a' variant='success' onClick={downloadExcel}>Скачать Excel</Button>
-
-            <GroupContainer groupsArr={resultGroups.monWedFr} title="пн ср птн" />
-            <GroupContainer groupsArr={resultGroups.tueThr} title="вт чт" />
-            <GroupContainer groupsArr={resultGroups.sat} title="сб" />
-            <GroupContainer groupsArr={resultGroups.individuals} title="индивидуалы" />
-            <GroupContainer groupsArr={resultGroups.others} title="другое" />
-          </div>
-        </div> */}
       </div >
       {isPrintBtnDisabled === false ? <ResultToPrint groupsResult={resultGroups} month={formatDateForExcel(dateToCalc.date)} /> : ''}
     </>

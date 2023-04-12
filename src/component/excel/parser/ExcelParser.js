@@ -12,20 +12,8 @@ export default async function ExcelParser(file) {
 
     console.log("Reading file");
     console.log(file);
-    /* get raw data */
     const data = await file.arrayBuffer();
-    /* data is an ArrayBuffer */
     const wb = XLSX.read(data);
-    /* do something with the workbook here */
-    //const wb_sheet = wb.Sheets[wb.SheetNames[6]];
-    //const wb_sheet = wb.Sheets[wb.SheetNames["13B"]];
-    //console.log(XLSX.utils.sheet_to_json(wb_sheet));
-    //console.log(XLSX.utils.sheet_to_html(wb_sheet));
-    //console.log(wb_sheet);
-    //console.log(Object.entries(wb_sheet));
-    //const {B14 , B15} = wb_sheet;
-    //console.log(B14 , B15);
-    //console.log(wb);
     console.log(wb.Sheets);
 
     const groups = wb.SheetNames

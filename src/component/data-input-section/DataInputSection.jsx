@@ -7,7 +7,7 @@ import DayOff from '../day-off/DayOff';
 import './DataInputSection.css';
 
 
-export default function DataInputSection({ onGroupsParsed, onFileChoose, onMonthChosen, daysOff, onDaysOffChosen, daysChange, onDaysChangeChosen }) {
+export default function DataInputSection({ onGroupsParsed, onFileChoose, onMonthChosen, chosenDate, daysOff, onDaysOffChosen, daysChange, onDaysChangeChosen }) {
     return (
         <div id='data-input-section' className='col-2 d-flex flex-column align-items-start'>
             <FileChooser
@@ -18,10 +18,12 @@ export default function DataInputSection({ onGroupsParsed, onFileChoose, onMonth
                 onMonthChosen={(res) => onMonthChosen(res)}
             />
             <DayOff
+                chosenDate={chosenDate}
                 daysOff={daysOff}
                 onDaysOffChosen={(res) => onDaysOffChosen(res)}
             />
             <DayChange
+                chosenDate={chosenDate}
                 daysChange={daysChange}
                 onDaysChangeChosen={(res) => onDaysChangeChosen(res)}
             />
