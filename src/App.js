@@ -67,7 +67,7 @@ export default function App() {
     setIsExcelBtnDisabled(true);
     setIsPrintBtnDisabled(true);
     setIsCalculationInProgess(true);
-    fetch(`${BACKEND_URL}/process-groups`, {
+    fetch(`${BACKEND_URL}/calculate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

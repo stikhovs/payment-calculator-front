@@ -9,7 +9,7 @@ export default function SelectedResultGroups({ schedule, groups }) {
     return (
         <div id="result-group-details-section" className='col'>
             <h2>{schedule}</h2>
-            <Accordion defaultActiveKey={0} alwaysOpen>
+            <Accordion defaultActiveKey={0}>
                 {
                     groups.map((group, index) =>
                         <Accordion.Item key={index} eventKey={index}>
@@ -52,8 +52,10 @@ export default function SelectedResultGroups({ schedule, groups }) {
                                                     <td>{index + 1}</td>
                                                     <td>{student.name} {student.indGraphic ? <strong>(инд график)</strong> : ''}</td>
                                                     <td>{student.discount !== 0 ? (student.discount * 100).toFixed(0) + "%" : ""}</td>
-                                                    <td>{student.hoursToPay.toFixed(2) > 0.0 ? student.hoursToPay.toFixed(2) : ""}</td>
-                                                    <td>{student.hoursToPay.toFixed(2) > 0.0 ? student.moneyToPay.toFixed(2) + " руб" : "не должен"}</td>
+                                                    <td>{student.hoursToPay > 0.0 ? student.hoursToPay : ""}</td>
+                                                    <td>{student.hoursToPay > 0.0 ? student.moneyToPay + " руб" : "не должен"}</td>
+                                                    {/* <td>{student.hoursToPay.toFixed(2) > 0.0 ? student.hoursToPay.toFixed(2) : ""}</td>
+                                                    <td>{student.hoursToPay.toFixed(2) > 0.0 ? student.moneyToPay.toFixed(2) + " руб" : "не должен"}</td> */}
                                                 </tr>
                                             )
                                         }
