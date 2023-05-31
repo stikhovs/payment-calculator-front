@@ -60,12 +60,12 @@ export default function DayChange({ chosenDate, daysChange, onDaysChangeChosen }
                 </Modal.Header>
                 <Modal.Body>
                     <div className='row'>
-                        <div className='col-12'>
+                        <div className='col-12 col-sm-6'>
                             <AirDatepickerReact
-                                name='days-from' 
+                                name='days-from'
                                 startDate={chosenDate}
-                                inline={true} 
-                                multipleDates={2} 
+                                inline={true}
+                                multipleDates={2}
                                 onSelect={handleDayChange}
                                 onRenderCell={(date, cellType) => {
                                     if (datesToBeDisabled.length > 0) {
@@ -76,15 +76,24 @@ export default function DayChange({ chosenDate, daysChange, onDaysChangeChosen }
                                         }
                                     }
                                 }}
-                            /></div>
+                            />
+                        </div>
+                        <div className='col-12 col-sm mt-2 mt-sm-0 ms-sm-3'>
+                            {
+                                dayFromTo[0] !== undefined ? <span>Перенести с <strong>{dayFromTo[0]}</strong> </span> : ''
+                            }
+                            {
+                                dayFromTo[1] !== undefined ? <span>на <strong>{dayFromTo[1]}</strong></span> : ''
+                            }
+                        </div>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        Отменить
                     </Button>
                     <Button variant="primary" onClick={handleSave} disabled={isSaveDisabled}>
-                        Save Changes
+                        Сохранить
                     </Button>
                 </Modal.Footer>
             </Modal>
