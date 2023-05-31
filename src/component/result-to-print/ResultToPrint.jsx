@@ -11,27 +11,33 @@ export default function ResultToPrint({ groupsResult, month }) {
             <div className="new-page">
                 <h2 className="schedule-title text-center">{schedule} {month}</h2>
                 {groups.map((group, index) =>
-                    <div key={index}>
-                        <p className="result-to-print print-group-title">{group.groupName + (group.groupId !== '' ? " (" + group.groupId + ")" : '')}</p>
-                        <p className="result-to-print print-group-price">Цена за 1 а/ч: {group.pricePerHour} руб.</p>
-                        <p className="result-to-print print-group-schedule">Расписание: {group.classDaysOne
-                            .concat(group.classDaysTwo)
-                            .map(weekday => weekToStr(weekday))
-                            .join(" ")}</p>
-                        <p className="result-to-print print-group-duration">
-                            Длительность: {group.classDurationOne.toFixed(2)} а/ч
-                            {group.classDurationTwo !== undefined && group.classDurationTwo !== 0 && group.classDurationTwo.toFixed(2) !== group.classDurationOne.toFixed(2) ?
-                                `, ${group.classDurationTwo.toFixed(2)} а/ч`
-                                : ''
-                            }
-                        </p>
-                        <p className="result-to-print print-group-teachers">
-                            {[group.teacherOne, group.teacherTwo].filter(teacher => teacher !== undefined).join(", ")}
-                            {group.groupLevel !== undefined ? `, ${group.groupLevel}` : ''}
-                        </p>
-                        <p className="result-to-print print-next-month-hours">
-                            Часов в следующем месяце: {group.nextMonthHours.toFixed(2)} а/ч
-                        </p>
+                    <div key={index} class="no-page-break">
+                        <div className="print-group-header">
+                            <div className="left-side">
+                                <p className="result-to-print print-group-title">{group.groupName + (group.groupId !== '' ? " (" + group.groupId + ")" : '')}</p>
+                                <p className="result-to-print print-group-price">Цена за 1 а/ч: {group.pricePerHour} руб.</p>
+                                <p className="result-to-print print-group-schedule">Расписание: {group.classDaysOne
+                                    .concat(group.classDaysTwo)
+                                    .map(weekday => weekToStr(weekday))
+                                    .join(" ")}</p>
+                            </div>
+                            <div className="right-side">
+                                <p className="result-to-print print-group-duration">
+                                    Длительность: {group.classDurationOne.toFixed(2)} а/ч
+                                    {group.classDurationTwo !== undefined && group.classDurationTwo !== 0 && group.classDurationTwo.toFixed(2) !== group.classDurationOne.toFixed(2) ?
+                                        `, ${group.classDurationTwo.toFixed(2)} а/ч`
+                                        : ''
+                                    }
+                                </p>
+                                <p className="result-to-print print-group-teachers">
+                                    {[group.teacherOne, group.teacherTwo].filter(teacher => teacher !== undefined).join(", ")}
+                                    {group.groupLevel !== undefined ? `, ${group.groupLevel}` : ''}
+                                </p>
+                                <p className="result-to-print print-next-month-hours">
+                                    Часов в следующем месяце: {group.nextMonthHours.toFixed(2)} а/ч
+                                </p>
+                            </div>
+                        </div>
 
                         <Table bordered className="print-group-students">
                             <thead>

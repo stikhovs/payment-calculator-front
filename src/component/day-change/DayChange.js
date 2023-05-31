@@ -32,7 +32,7 @@ export default function DayChange({ chosenDate, daysChange, onDaysChangeChosen }
     };
 
     useEffect(() => {
-        if ((dayFromTo.length == 2)) {
+        if ((dayFromTo.length === 2)) {
             setIsSaveDisabled(false);
         } else {
             setIsSaveDisabled(true);

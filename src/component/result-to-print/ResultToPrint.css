@@ -8,9 +8,20 @@
     #root * {
         display: none;
     }
-    
-    #to-print, #to-print * {
+
+    #to-print,
+    #to-print * {
         display: block;
+    }
+
+    #to-print .print-group-header {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px 0 10px 0;
+    }
+
+    #to-print .no-page-break {
+        page-break-inside: avoid;
     }
 
     #to-print table {
@@ -29,7 +40,8 @@
         display: table-row;
     }
 
-    #to-print table th, #to-print table td {
+    #to-print table th,
+    #to-print table td {
         display: table-cell;
     }
 
