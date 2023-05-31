@@ -67,6 +67,12 @@ export default function App() {
     setIsExcelBtnDisabled(true);
     setIsPrintBtnDisabled(true);
     setIsCalculationInProgess(true);
+    console.log(JSON.stringify({
+      dateToCalc: formatDate(dateToCalc.date),
+      daysOff: daysOff,
+      daysChange: daysChange,
+      groups: groups
+    }));
     fetch(`${BACKEND_URL}/calculate`, {
       method: 'POST',
       headers: {
