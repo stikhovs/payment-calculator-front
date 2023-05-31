@@ -11,9 +11,9 @@ export default function Header({
 }) {
 
     return (
-        <header className="sticky-top shadow">
-            <div className='d-flex'>
-                <div className='col-3 title-container p-2 d-flex align-items-center'>
+        <header className="sticky-sm-top shadow">
+            <div className='d-flex flex-column flex-sm-row'>
+                <div className='col-12 col-sm-3 title-container p-2 d-flex align-items-center'>
                     <h1>Помощник расчета квитанций</h1>
                 </div>
                 <div className='col buttons-container p-2 d-flex align-items-center'>
