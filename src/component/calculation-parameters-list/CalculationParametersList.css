@@ -11,7 +11,8 @@
     margin-bottom: 10px;
 }
 
-.chosen-file, .chosen-month {
+.chosen-file,
+.chosen-month {
     margin-bottom: 0.5rem;
 }
 
@@ -23,7 +24,8 @@
     margin-bottom: 0;
 }
 
-.chosen-days-off-list, .chosen-days-change-list {
+.chosen-days-off-list,
+.chosen-days-change-list {
     margin-bottom: 0.5rem;
     list-style-type: "– ";
 }

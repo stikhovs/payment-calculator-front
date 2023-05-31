@@ -1,0 +1,118 @@
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 991.98px) {
+    #groups-result-by-schedule-list {
+        height: auto;
+    }    
+}
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) { 
+    .title-container h1 {
+        font-size: 1rem;
+        padding: 0 0 0 20px;
+    }
+
+    .buttons-container .btn {
+        font-size: 0.8rem;
+    }
+
+    #btn-do-print {
+        display: none;
+    }
+ }
+
+
+ /* X-Small devices (portrait phones, less than 576px) */
+/* @media (max-width: 575.98px) {
+
+    .title-container h1 {
+        font-size: 0.8rem;
+        padding: 0 0 0 20px;
+    }
+
+    .buttons-container .btn {
+        font-size: 0.8rem;
+    }
+
+    #file-choose-label {
+        font-size: 0.8rem;
+    }
+
+    .choose-month-title{
+        font-size: 0.8rem;
+    }
+
+    #month-choose-container .air-datepicker {
+        font-size: 0.8rem;
+    }
+    
+    .day-off-title {
+        font-size: 0.8rem;
+    }
+
+    #day-off-container .air-datepicker {
+        font-size: 0.8rem;
+    }
+
+    #add-day-change-btn {
+        padding: 10px;
+        font-size: 0.8rem;
+    }
+
+    #result-group-details-section h2 {
+        font-size: 1.5rem;
+    }
+
+    #result-group-details-section .result-group-detail {
+        font-size: 1rem;
+        margin: 5px;
+    }
+
+    #groups-to-calc-list .list-group-item .group-title,
+    #groups-to-calc-list .list-group-item .group-schedule,
+    #groups-to-calc-list .list-group-item .students-count {
+        font-size: 0.8rem;
+    }
+
+    .groups-to-calc-list-title {
+        font-size: 1rem;
+    }
+
+    .groups-result-by-schedule-list-title {
+        font-size: 1rem;
+    }
+
+    #groups-result-by-schedule-list .list-group-item .title,
+    #groups-result-by-schedule-list .list-group-item .groups-count {
+        font-size: 0.8rem;
+        margin: 0;
+    }
+    
+    .pre-calculation-group-title {
+        font-size: 1.5rem;
+    }
+
+    .pre-calculation-group-detail {
+        font-size: 1rem;
+        margin: 0;
+    }
+
+    .pre-calculation-group-students {
+        font-size: 1rem;
+        margin: 10px 0 0 0 ;
+    }
+    
+    .calculation-parameters-list-title {
+        font-size: 1rem;
+    }
+
+    .chosen-file,
+    .chosen-month,
+    .chosen-days-off,
+    .chosen-days-change,
+    .chosen-days-off-list,
+    .chosen-days-change-list {
+        font-size: 0.8rem;
+    }
+
+} */

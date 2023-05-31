@@ -7,6 +7,7 @@ import ResultToPrint from "./component/result-to-print/ResultToPrint";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import './media-queries.css';
 
 export default function App() {
 

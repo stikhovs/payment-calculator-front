@@ -49,7 +49,7 @@ export default function CalculationSection({
 
     return (
         <>
-            <div id='pre-calculation-params-section' className='col-3 d-flex flex-column align-items-start'>
+            <div id='pre-calculation-params-section' className='col-12 col-lg-3 d-flex flex-column align-items-start'>
                 {
                     canShowPreCalcGroup ?
                         <GroupsToCalcList groupsToCalc={groupsToCalc} onGroupChoose={getSelectedPreCalcGroup} />

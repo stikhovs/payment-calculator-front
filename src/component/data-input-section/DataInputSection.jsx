@@ -9,7 +9,7 @@ import './DataInputSection.css';
 
 export default function DataInputSection({ onGroupsParsed, onFileChoose, onMonthChosen, chosenDate, daysOff, onDaysOffChosen, daysChange, onDaysChangeChosen }) {
     return (
-        <div id='data-input-section' className='col-2 d-flex flex-column align-items-start'>
+        <div id='data-input-section' className='col-12 col-xl-2 d-flex flex-column align-items-start'>
             <FileChooser
                 onGroupsParsed={(res) => onGroupsParsed(res)}
                 onFileChoose={onFileChoose}
