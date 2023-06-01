@@ -2,3 +2,7 @@
     margin: 10px 0 0 0;
     color: #383B3F;
 }
+
+#result-group-details-section .accordion-button:focus {
+    box-shadow: none;
+}
