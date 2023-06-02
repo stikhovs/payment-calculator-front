@@ -15,25 +15,32 @@ export default function SelectedResultGroups({ schedule, groups }) {
                         <Accordion.Item key={index} eventKey={index}>
                             <Accordion.Header>{group.groupName + (group.groupId !== '' ? " (" + group.groupId + ")" : '')}</Accordion.Header>
                             <Accordion.Body>
-                                <p className="result-group-detail result-group-price">Цена за 1 а/ч: {group.pricePerHour} руб.</p>
-                                <p className="result-group-detail result-group-schedule">Расписание: {group.classDaysOne
-                                    .concat(group.classDaysTwo)
-                                    .map(weekday => weekToStr(weekday))
-                                    .join(" ")}</p>
-                                <p className="result-group-detail result-group-duration">
-                                    Длительность: {group.classDurationOne.toFixed(2)} а/ч
-                                    {group.classDurationTwo !== undefined && group.classDurationTwo !== 0 && group.classDurationTwo.toFixed(2) !== group.classDurationOne.toFixed(2) ?
-                                        `, ${group.classDurationTwo.toFixed(2)} а/ч`
-                                        : ''
-                                    }
-                                </p>
-                                <p className="result-group-detail result-group-teachers">
-                                    {[group.teacherOne, group.teacherTwo].filter(teacher => teacher !== undefined).join(", ")}
-                                    {group.groupLevel !== undefined ? `, ${group.groupLevel}` : ''}
-                                </p>
-                                <p className="result-group-detail next-month-hours">
-                                    Часов в следующем месяце: {group.nextMonthHours.toFixed(2)} а/ч
-                                </p>
+                                <div className="result-group-header d-flex flex-column  flex-sm-row justify-content-sm-between">
+                                    <div className="left-side">
+                                        <p className="result-group-detail result-group-price">Цена за 1 а/ч: {group.pricePerHour} руб.</p>
+                                        <p className="result-group-detail result-group-schedule">Расписание: {group.classDaysOne
+                                            .concat(group.classDaysTwo)
+                                            .map(weekday => weekToStr(weekday))
+                                            .join(" ")}</p>
+
+                                        <p className="result-group-detail result-group-duration">
+                                            Длительность: {group.classDurationOne.toFixed(2)} а/ч
+                                            {group.classDurationTwo !== undefined && group.classDurationTwo !== 0 && group.classDurationTwo.toFixed(2) !== group.classDurationOne.toFixed(2) ?
+                                                `, ${group.classDurationTwo.toFixed(2)} а/ч`
+                                                : ''
+                                            }
+                                        </p>
+                                    </div>
+                                    <div className="right-side">
+                                        <p className="result-group-detail result-group-teachers">
+                                            {[group.teacherOne, group.teacherTwo].filter(teacher => teacher !== undefined).join(", ")}
+                                            {group.groupLevel !== undefined ? `, ${group.groupLevel}` : ''}
+                                        </p>
+                                        <p className="result-group-detail next-month-hours">
+                                            Часов в следующем месяце: {group.nextMonthHours.toFixed(2)} а/ч
+                                        </p>
+                                    </div>
+                                </div>
 
                                 <Table bordered hover className="result-group-students">
                                     <thead>

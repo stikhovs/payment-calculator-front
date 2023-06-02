@@ -54,7 +54,7 @@ export default function DayChange({ chosenDate, daysChange, onDaysChangeChosen }
         <div id='day-change-container'>
             <Button variant="outline-info" id="add-day-change-btn" onClick={handleShow}>Добавить перенос дней</Button>
 
-            <Modal show={show} onHide={handleClose} centered>
+            <Modal show={show} onHide={handleClose} centered id="day-change-modal">
                 <Modal.Header closeButton>
                     <Modal.Title className='text-center w-100'>Перенос дней</Modal.Title>
                 </Modal.Header>

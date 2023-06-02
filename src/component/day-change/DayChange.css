@@ -9,3 +9,7 @@
     width: 100%;
     text-align: center;
 }
+
+#day-change-modal .btn-close {
+    box-shadow: none;
+}

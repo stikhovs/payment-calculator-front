@@ -6,3 +6,11 @@
 #result-group-details-section .accordion-button:focus {
     box-shadow: none;
 }
+
+#result-group-details-section .result-group-header {
+    margin-bottom: 10px;
+}
+
+#result-group-details-section .result-group-detail {
+    margin-bottom: 5px;
+}
