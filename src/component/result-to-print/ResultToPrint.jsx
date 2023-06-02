@@ -11,7 +11,7 @@ export default function ResultToPrint({ groupsResult, month }) {
             <div className="new-page">
                 <h2 className="schedule-title text-center">{schedule} {month}</h2>
                 {groups.map((group, index) =>
-                    <div key={index} class="no-page-break">
+                    <div key={index} className="no-page-break">
                         <div className="print-group-header">
                             <div className="left-side">
                                 <p className="result-to-print print-group-title">{group.groupName + (group.groupId !== '' ? " (" + group.groupId + ")" : '')}</p>

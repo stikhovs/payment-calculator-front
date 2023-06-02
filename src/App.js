@@ -4,6 +4,7 @@ import DataInputSection from './component/data-input-section/DataInputSection';
 import CalculationSection from './component/calculation-section/CalculationSection';
 import CalculationParametersList from "./component/calculation-parameters-list/CalculationParametersList";
 import ResultToPrint from "./component/result-to-print/ResultToPrint";
+import ErrorAlert from "./component/error-alert/ErrorAlert";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -18,7 +19,6 @@ export default function App() {
   const [daysOff, setDaysOff] = useState([]);
   const [daysChange, setDaysChange] = useState([]);
   const [groups, setGroups] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [resultGroups, setResultGroups] = useState(null);
   const [isCalcBtnDisabled, setIsCalcBtnDisabled] = useState(true);
   const [isExcelBtnDisabled, setIsExcelBtnDisabled] = useState(true);
@@ -26,6 +26,9 @@ export default function App() {
 
   const [isCalculationInProgess, setIsCalculationInProgess] = useState(false);
   const [isExcelCreationInProgress, setIsExcelCreationInProgress] = useState(false);
+
+  const [errorMessage, setErrorMessage] = useState('');
+  const [showError, setShowError] = useState(false);
 
   const calcParams =
     <CalculationParametersList
@@ -68,12 +71,12 @@ export default function App() {
     setIsExcelBtnDisabled(true);
     setIsPrintBtnDisabled(true);
     setIsCalculationInProgess(true);
-    console.log(JSON.stringify({
+    /* console.log(JSON.stringify({
       dateToCalc: formatDate(dateToCalc.date),
       daysOff: daysOff,
       daysChange: daysChange,
       groups: groups
-    }));
+    })); */
     fetch(`${BACKEND_URL}/calculate`, {
       method: 'POST',
       headers: {
@@ -86,7 +89,13 @@ export default function App() {
         groups: groups
       })
     })
-      .then(res => res.json())
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        console.log(`Something went wrong during calculation. Server responded with status ${response.status}`);
+        throw new Error(`Ошибка во время обработки данных. Код ответа сервера: ${response.status}`);
+      })
       .then(res => {
         console.log("Result");
         console.log(res);
@@ -97,6 +106,13 @@ export default function App() {
         setIsExcelBtnDisabled(false);
         setIsPrintBtnDisabled(false);
         setIsCalculationInProgess(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsCalcBtnDisabled(false);
+        setIsCalculationInProgess(false);
+        setErrorMessage(error.message);
+        setShowError(true);
       });
   }
 
@@ -118,11 +134,12 @@ export default function App() {
         others: resultGroups.others
       })
     })
-      .then(res => {
-        if (res.ok) {
-          return res.blob();
+      .then(response => {
+        if (response.ok) {
+          return response.blob();
         }
-        throw new Error('Something went wrong');
+        console.log(`Something went wrong during creation the excel file. Server responded with status ${response.status}`);
+        throw new Error(`Ошибка во время преобразования в excel файл. Код ответа сервера: ${response.status}`);
       })
       .then((blob) => {
 
@@ -139,7 +156,11 @@ export default function App() {
         setIsExcelCreationInProgress(false);
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
+        setIsExcelBtnDisabled(false);
+        setIsExcelCreationInProgress(false);
+        setErrorMessage(error.message);
+        setShowError(true);
       });
   }
 
@@ -171,6 +192,10 @@ export default function App() {
             onDaysOffChosen={(res) => setDaysOff(res)}
             daysChange={daysChange}
             onDaysChangeChosen={(res) => setDaysChange(current => [...current, { from: res[0], to: res[1] }])}
+            onError={msg => {
+              setErrorMessage(msg);
+              setShowError(true);
+            }}
           />
           <CalculationSection
             groupsToCalc={groups}
@@ -180,6 +205,11 @@ export default function App() {
         </div>
       </div >
       {isPrintBtnDisabled === false ? <ResultToPrint groupsResult={resultGroups} month={formatDateForExcel(dateToCalc.date)} /> : ''}
+      <ErrorAlert
+        errorMessage={errorMessage}
+        showError={showError}
+        onClose={() => setShowError(false)} 
+      />
     </>
   );
 

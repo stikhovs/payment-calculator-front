@@ -1,0 +1,13 @@
+#error-alert {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2000;
+    box-shadow: 2px 2px 5px 0px #322727;
+    min-width: 200px;
+    max-width: 300px;
+}
+
+#error-alert .btn-close {
+    box-shadow: none;
+}

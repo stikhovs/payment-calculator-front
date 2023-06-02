@@ -9,24 +9,30 @@ import './ExcelParser.css';
 
 export function parseFile(file) {
     return new Promise(async (resolve, reject) => {
-        console.log("Reading file");
-        console.log(file);
+        try {
+            console.log("Reading file");
+            console.log(file);
 
-        const data = await file.arrayBuffer();
-        const wb = XLSX.read(data);
+            const data = await file.arrayBuffer();
+            const wb = XLSX.read(data);
 
-        console.log(wb.Sheets);
+            console.log(wb.Sheets);
 
-        const groups = wb.SheetNames
-            .map(name => [name, wb.Sheets[name]])
-            .filter(([, sheet]) => filterValidSheet(sheet))
-            .map(([sheetName, sheet]) => handleSheetMapping(sheetName, sheet))
-            .filter(({ students }) => students.length > 0)
+            const groups = wb.SheetNames
+                .map(name => [name, wb.Sheets[name]])
+                .filter(([, sheet]) => filterValidSheet(sheet))
+                .map(([sheetName, sheet]) => handleSheetMapping(sheetName, sheet))
+                .filter(({ students }) => students.length > 0)
 
-        console.log("groups to process");
-        console.log(groups);
+            console.log("groups to process");
+            console.log(groups);
 
-        return resolve(groups);
+            return resolve(groups);
+        }
+        catch (error) {
+            console.error("An error occurred while parsing the file:", error);
+            reject(error);
+        }
     });
 }
 

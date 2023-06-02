@@ -19,7 +19,7 @@ export default function GroupsResultBySchedule({ resultGroups, onScheduleChoose 
     function draw() {
         let result = [];
         for (const schedule of groupsByScheduleMap.keys()) {
-            if (groupsByScheduleMap.get(schedule) !== null) {
+            if (groupsByScheduleMap.get(schedule) !== null && groupsByScheduleMap.get(schedule).length > 0) {
                 result.push(
                     <li key={schedule} className={`list-group-item ${schedule === activeSchedule ? "active" : ''}`} onClick={() => handleClick(schedule)}>
                         <p className="title">{schedule}</p>

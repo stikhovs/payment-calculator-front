@@ -6,7 +6,7 @@ import Spinner from 'react-bootstrap/Spinner';
 
 import './FileChooser.css';
 
-export default function FileChooser({ onFileChoose, onGroupsParsed }) {
+export default function FileChooser({ onFileChoose, onGroupsParsed, onError }) {
 
     const [isParsing, setIsParsing] = useState(false);
 
@@ -17,7 +17,14 @@ export default function FileChooser({ onFileChoose, onGroupsParsed }) {
 
             parseFile(event.target.files[0])
                 .then(value => onGroupsParsed(value))
-                .then(() => setIsParsing(false));
+                .then(() => {
+                    setIsParsing(false);
+                })
+                .catch((error) => {
+                    console.log(`Error during excel parsing: ${error.message}`);
+                    setIsParsing(false);
+                    onError(`Ошибка чтения excel-файла. ${error.message}`);
+                });
         }
     };
 
@@ -35,7 +42,7 @@ export default function FileChooser({ onFileChoose, onGroupsParsed }) {
                     htmlFor='file-choose-input'>
                     {
                         isParsing ? <><span>Загрузка файла...</span><Spinner className='in-progress-spinner' animation="border" variant="light" size="sm" /></>
-                        : 'Выберите Excel файл'
+                            : 'Выберите Excel файл'
                     }
                 </Form.Label>
             </InputGroup>
