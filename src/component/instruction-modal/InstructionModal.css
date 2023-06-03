@@ -1,3 +1,7 @@
 #instruction-modal .btn-close {
     box-shadow: none;
 }
+
+#instruction-modal .accordion-button {
+    box-shadow: none;
+}

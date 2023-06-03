@@ -25,9 +25,6 @@
  /* X-Small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
 
-    #pre-calculation-group-details-section .pre-calculation-group-students,
-    #result-group-details-section .accordion .accordion-body {
-        overflow-x: scroll;
-    }
+    
 
 }
