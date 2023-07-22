@@ -5,6 +5,7 @@ import CalculationSection from './component/calculation-section/CalculationSecti
 import CalculationParametersList from "./component/calculation-parameters-list/CalculationParametersList";
 import ResultToPrint from "./component/result-to-print/ResultToPrint";
 import ErrorAlert from "./component/error-alert/ErrorAlert";
+import HealthCheck from "./component/health-check/HealthCheck";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -30,6 +31,9 @@ export default function App() {
   const [errorMessage, setErrorMessage] = useState('');
   const [showError, setShowError] = useState(false);
 
+  const [isServerReady, setIsServerReady] = useState(false);
+  const [isServerHealthError, setIsServerHealthError] = useState(false);
+
   const calcParams =
     <CalculationParametersList
       chosenFileName={fileName}
@@ -38,6 +42,29 @@ export default function App() {
       chosenDaysChange={daysChange}
       onChangeDayRemove={(index) => setDaysChange(daysChange.filter((el, idx) => idx !== index))}
     />
+
+  useEffect(() => {
+    fetch(`${BACKEND_URL}/health-check`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log("Server is ready");
+          setIsServerReady(true);
+          return response.json();
+        }
+        console.log(`Something went wrong backend healthcheck. Server responded with status ${response.status}`);
+        setIsServerHealthError(true);
+      })
+      .catch(ex => {
+        console.log(ex);
+        setIsServerHealthError(true);
+      })
+  }, []);
+
 
   useEffect(() => {
     if (fileName !== '') {
@@ -171,6 +198,7 @@ export default function App() {
 
   return (
     <>
+      <HealthCheck isServerReady={isServerReady} isError={isServerHealthError} />
       <Header
         isCalcBtnDisabled={isCalcBtnDisabled}
         isExcelBtnDisabled={isExcelBtnDisabled}
@@ -208,7 +236,7 @@ export default function App() {
       <ErrorAlert
         errorMessage={errorMessage}
         showError={showError}
-        onClose={() => setShowError(false)} 
+        onClose={() => setShowError(false)}
       />
     </>
   );

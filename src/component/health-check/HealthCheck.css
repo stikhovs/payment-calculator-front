@@ -1,0 +1,36 @@
+#health-check {
+    width: 10px;
+    height: 10px;
+    top: 50px;
+    right: 5px;
+    position: absolute;
+    z-index: 9999;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+#health-check .dot {
+    width: 100%;
+    height: 100%;
+}
+
+#health-check .server-not-ready {
+    animation: colorChange 1s infinite alternate;
+}
+
+#health-check .server-ready {
+    background-color: rgb(65, 197, 65);
+}
+
+#health-check .error {
+    background-color: red;
+}
+
+@keyframes colorChange {
+    0% {
+      background-color: rgb(65, 197, 65);
+    }
+    100% {
+      background-color: transparent;
+    }
+  }
