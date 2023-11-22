@@ -9,3 +9,7 @@ html, body {
 .in-progress-spinner {
     margin-left: 10px;
 }
+
+#root {
+    position: relative;
+}
